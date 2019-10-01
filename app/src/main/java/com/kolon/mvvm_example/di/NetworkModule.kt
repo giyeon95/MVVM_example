@@ -1,4 +1,4 @@
-package com.kolon.mvvm_example.network
+package com.kolon.mvvm_example.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -31,7 +31,7 @@ private const val READ_TIMEOUT = 10L
                 writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                 retryOnConnectionFailure(true)
-                addInterceptor(get())
+                //addInterceptor(get())
                 addInterceptor(HttpLoggingInterceptor().apply {
                     if(BuildConfig.DEBUG) {
                         level = HttpLoggingInterceptor.Level.BODY
@@ -42,7 +42,7 @@ private const val READ_TIMEOUT = 10L
 
         single<Retrofit> {
             Retrofit.Builder()
-                .baseUrl("Https://api.github.com")
+                .baseUrl("https://api.github.com")
                 .addConverterFactory(GsonConverterFactory.create(get()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(get())
